@@ -1,5 +1,5 @@
-from .interfaces import PoolableMessage
 import copy
+from .interface import PoolableMessage
 
 class MessageTemplate(PoolableMessage):
     """
