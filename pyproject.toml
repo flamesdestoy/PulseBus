@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pulsebus"
+version = "0.1.0"
+description = "General-purpose message routing framework with pooling and notification"
+authors = [{ name = "Your Name", email = "your@email.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = []
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
