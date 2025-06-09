@@ -3,8 +3,8 @@
 import threading
 from queue import Queue, Full, Empty
 from typing import Callable, Optional
-from pool.message_pool import MessagePool
-from message.interface import PoolableMessage
+from ..pool.message_pool import MessagePool
+from ..message.interface import PoolableMessage
 
 class MessageQueue:
     """

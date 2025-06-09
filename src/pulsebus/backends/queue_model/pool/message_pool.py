@@ -6,7 +6,7 @@ import threading
 import queue
 from typing import Optional
 
-from message.message import MessageTemplate
+from ..message.message import MessageTemplate
 
 
 class _SingletonMeta(type):
