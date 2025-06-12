@@ -51,7 +51,7 @@ class MessageQueue:
         """
         return self._queue.get(block=block, timeout=timeout)
 
-    def subscribe(self, handler_fn: Callable[[PoolableMessage], None], daemon: bool = True) -> None:
+    def subscribe(self, pool: MessagePool, handler_fn: Callable[[PoolableMessage], None], daemon: bool = True) -> None:
         """
         Starts a consumer thread that calls `handler_fn` on each received message.
 
@@ -60,7 +60,6 @@ class MessageQueue:
             daemon (bool): Whether the consumer thread should be a daemon thread.
         """
         def _consumer_loop():
-            pool = MessagePool()
             while not self._shutdown_event.is_set():
                 try:
                     message = self.consume(block=True, timeout=0.5)

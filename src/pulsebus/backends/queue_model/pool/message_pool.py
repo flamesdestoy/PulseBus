@@ -1,34 +1,11 @@
 """Thread‑safe singleton object pool for reusable message instances."""
-
-from __future__ import annotations
-
 import threading
 import queue
 from typing import Optional
 
 from ..message.message import MessageTemplate
 
-
-class _SingletonMeta(type):
-    """A thread‑safe Singleton metaclass.
-
-    Guarantees exactly one pool instance in the current interpreter.
-    Subsequent construction attempts return the first created object
-    *without* calling ``__init__`` again.
-    """
-
-    _instances: dict[type, "MessagePool"] = {}
-    _lock: threading.Lock = threading.Lock()
-
-    def __call__(cls, *args, **kwargs):  # type: ignore[override]
-        with cls._lock:
-            if cls not in cls._instances:
-                instance = super().__call__(*args, **kwargs)
-                cls._instances[cls] = instance
-        return cls._instances[cls]
-
-
-class MessagePool(metaclass=_SingletonMeta):
+class MessagePool:
     """Fixed‑size, thread‑safe pool for :class:`MessageTemplate` objects.
 
     Parameters
