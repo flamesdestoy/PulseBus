@@ -77,5 +77,6 @@ class MessagePool:
         return {
             "available": available,
             "in_use": self._created - available,
+            "created_messages": self._created,
             "capacity": self._max_size,
         }
