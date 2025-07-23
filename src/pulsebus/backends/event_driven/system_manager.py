@@ -1,7 +1,7 @@
 import logging
-from queues import LockFreeQueue
-from producers import BaseProducer, ProducerController
-from consumers import BaseConsumer, ConsumerController
+from .queues import LockFreeQueue
+from .producers import BaseProducer, ProducerController
+from .consumers import BaseConsumer, ConsumerController
 
 class EventSystem:
     """Orchestrates producers and consumers."""

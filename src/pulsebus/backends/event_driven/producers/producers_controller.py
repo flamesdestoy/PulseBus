@@ -3,7 +3,7 @@ import time
 import logging
 
 from .base import BaseProducer
-from queues import LockFreeQueue
+from ..queues import LockFreeQueue
 
 class ProducerController:
     """Manages producer thread lifecycle."""

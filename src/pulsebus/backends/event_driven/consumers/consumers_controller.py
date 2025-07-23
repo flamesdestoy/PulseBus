@@ -4,7 +4,7 @@ import logging
 import queue
 
 from .base import BaseConsumer
-from queues import LockFreeQueue
+from ..queues import LockFreeQueue
 
 class ConsumerController:
     """Manages consumer thread pool."""
