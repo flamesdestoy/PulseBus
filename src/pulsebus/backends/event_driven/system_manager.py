@@ -64,6 +64,7 @@ class EventSystem:
             daemon=True,
             name="ShutdownMonitor"
         ).start()
+        self._logger.info(f"Started the monitoring thread")
 
     def _monitor_shutdown(self):
         """Start monitor thread only if auto-shutdown enabled."""
