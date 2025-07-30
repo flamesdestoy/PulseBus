@@ -15,6 +15,8 @@ class ConsumerController:
         self._threads = []
         self._running = False
         self._logger = logging.getLogger(f"Consumer.{consumer.__class__.__name__}")
+        self._active_workers = 0
+        self._workers_lock = threading.Lock()
 
     def start(self):
         """Start all consumer threads."""
@@ -49,12 +51,29 @@ class ConsumerController:
         self._threads.clear()
         self._logger.info("All consumers stopped")
 
+    def has_active_workers(self) -> bool:
+        """Thread-safe check if any workers are busy."""
+        with self._workers_lock:
+            return self._active_workers > 0
+
     def _run_loop(self):
         """Internal message consumption loop."""
         while self._running:
             try:
                 message = self._queue.get(block=True, timeout=0.1)
-                self._consumer.consume(message)
+
+                # [1] WORKER STARTS - Increment counter
+                with self._workers_lock:
+                    self._active_workers += 1
+                
+                try:
+                    # [2] PROCESS MESSAGE (critical section)
+                    self._consumer.consume(message)
+                finally:
+                    # [3] WORKER ENDS - Decrement even if crash occurs
+                    with self._workers_lock:
+                        self._active_workers -= 1
+
                 self._queue.task_done()
             except queue.Empty:
                 continue
