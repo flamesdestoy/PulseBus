@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pulsebus"
-version = "2.0.2"
+version = "2.0.3"
 description = "General-purpose message routing framework built upon an event driven architecture, handles up to very large amounts of data transmition and channeling with concurrent consumers and producers."
 authors = [{ name = "Your Name", email = "your@email.com" }]
 readme = "README.md"
